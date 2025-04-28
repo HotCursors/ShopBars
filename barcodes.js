@@ -11,16 +11,9 @@ const showEanCheckbox = document.getElementById("showEan");
 const submitButton = document.getElementById("processCsv");
 const barcodeContainer = document.getElementById("barcodeContainer");
 
+// Load state on page load
 document.body.onload = function () {
-  // Load the CSV and showEan state from localStorage on page load
-  const savedCsv = localStorage.getItem("savedCsv");
-  const savedShowEan = localStorage.getItem("savedShowEan") === "true";
-  if (savedCsv) {
-    showEanCheckbox.checked = savedShowEan;
-    generateBarcodes(savedCsv, savedShowEan);
-    //   } else {
-    //     generateBarcodes(csvContentExample, true);
-  }
+  loadStateFromLocalStorage();
 };
 
 document.getElementById("processCsv").addEventListener("click", function () {
@@ -34,21 +27,30 @@ document.getElementById("processCsv").addEventListener("click", function () {
   const reader = new FileReader();
   reader.onload = function (event) {
     const csvContent = event.target.result;
-    generateBarcodes(csvContent, showEan);
-    saveCsvToLocalStorage(csvContent, showEan);
+    const items = parseItemsFromCsv(csvContent);
+    generateBarcodes(items, showEan);
+    saveStateToLocalStorage(!!showEan);
   };
   reader.readAsText(file);
 });
 
-function generateBarcodes(csvContent, showEan) {
-  barcodeContainer.innerHTML = ""; // Clear previous barcodes
-
+function parseItemsFromCsv(csvContent) {
   const lines = csvContent.split("\n").filter((line) => line.trim() !== "");
 
-  lines.forEach((line, index) => {
-    if (index === 0) return; // Skip header line
-    const [productCode, ean, itemsCount] = line.split(";");
-    if(!productCode || !itemsCount) return; // Skip if product code or items count is missing
+  return lines
+    .filter((_, index) => index !== 0)
+    .map((line) => {
+      const [productCode, ean, itemsCount] = line.split(";");
+      return { productCode, ean, itemsCount };
+    })
+    .filter(({ productCode, itemsCount }) => productCode && itemsCount);
+}
+
+function generateBarcodes(items, showEan) {
+  barcodeContainer.innerHTML = ""; // Clear previous barcodes
+
+  items.forEach(({ productCode, ean, itemsCount }) => {
+    if(!productCode || !itemsCount) return; // Skip if productCode or itemsCount is missing
 
     const barcodeDiv = document.createElement("div");
     barcodeDiv.classList.add("item");
@@ -76,6 +78,7 @@ function createBarcode(value, format, className, options = {}) {
   const canvas = document.createElement("canvas");
   canvas.classList.add(className);
   canvas.classList.add("barcode");
+  canvas.setAttribute("data-value", value);
   JsBarcode(canvas, value, {
     format: format,
     height: 50,
@@ -116,8 +119,48 @@ function createCounter(value, className) {
   return container;
 }
 
-// Save the loaded CSV and showEan state to localStorage
-function saveCsvToLocalStorage(csvContent, showEan) {
-  localStorage.setItem("savedCsv", csvContent);
-  localStorage.setItem("savedShowEan", showEan);
+// Save the updated state to localStorage
+function saveStateToLocalStorage(showEan) {
+  const savedState = localStorage.getItem("savedState");
+  const state = {
+    showEan: true,
+    ...(savedState ? JSON.parse(savedState) : {}),
+    items: [],
+  };
+  state.showEan = showEan !== undefined ? showEan : state.showEan;
+
+  const items = barcodeContainer.querySelectorAll(".item");
+  items.forEach((item) => {
+    const productCode = item
+      .querySelector(".productCode")
+      .getAttribute("data-value");
+    const ean = item.querySelector(".ean")?.getAttribute("data-value") || "";
+    const itemsCount = item.querySelector(".itemsCount input").value;
+
+    state.items.push({ productCode, ean, itemsCount });
+  });
+
+  localStorage.setItem("savedState", JSON.stringify(state));
 }
+
+// Load the state from localStorage
+function loadStateFromLocalStorage() {
+  const savedState = localStorage.getItem("savedState");
+  if (savedState) {
+    const state = JSON.parse(savedState);
+    generateBarcodes(state.items, state.showEan);
+    showEanCheckbox.checked = state.showEan;
+  }
+}
+
+// Attach event listener to save state on count updates
+barcodeContainer.addEventListener("input", (event) => {
+  if (event.target.tagName === "INPUT" && event.target.parentElement.classList.contains("itemsCount")) {
+    saveStateToLocalStorage();
+  }
+});
+barcodeContainer.addEventListener("click", (event) => {
+  if (event.target.tagName === "BUTTON" && event.target.parentElement.classList.contains("itemsCount")) {
+    saveStateToLocalStorage();
+  }
+});
