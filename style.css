@@ -71,6 +71,16 @@ header {
     border-radius: 5px;
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+}
+
+
+.barcode {
+    height: 100px;
+    width: auto; /* Maintain aspect ratio */
+    max-width: 200px; /* Set a maximum width to prevent stretching */
+    margin: auto;
+    display: block;
 }
 
 .productCode {
@@ -83,27 +93,30 @@ header {
 .itemsCount {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0;
     flex: 0 0 auto;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 1em;
+}
+
+.itemsCount > * {
+    font-size: 26px;
 }
 
 .itemsCount input[type="number"] {
-    width: 60px;
-    height: 40px;
+    width: 80px;
+    height: 50px;
     text-align: center;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 2px solid #0b4a8e;
 }
 
 .itemsCount button {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+    width: 50px;
+    height: 50px;
     background: #0b4a8e;
     color: #fff;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
 }
@@ -136,6 +149,9 @@ header {
     .ean {
         margin-top: 10px;
     }
+    .itemsCount > * {
+        font-size: 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -146,12 +162,14 @@ header {
     .itemsCount input[type="number"] {
         width: 50px;
         height: 35px;
-        font-size: 14px;
     }
 
     .itemsCount button {
         width: 35px;
         height: 35px;
+    }
+
+    .itemsCount > * {
         font-size: 16px;
     }
 }
@@ -189,8 +207,5 @@ header {
 .barcode {
     background: #fdf6e3; /* Light shade of #f7cc1d */
     border: 2px solid #69b42e; /* Original green */
-}
-
-.barcode p {
-    color: #0b4a8e; /* Original blue */
+    border-radius: 10px;
 }

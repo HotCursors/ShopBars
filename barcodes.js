@@ -67,6 +67,7 @@ function generateBarcodes(csvContent, showEan) {
 function createBarcode(value, format, className, options = {}) {
   const canvas = document.createElement("canvas");
   canvas.classList.add(className);
+  canvas.classList.add("barcode");
   JsBarcode(canvas, value, {
     format: format,
     height: 50,
@@ -92,7 +93,7 @@ function createCounter(value, className) {
   });
 
   const minusBtn = document.createElement("button");
-  minusBtn.innerHTML = "-";
+  minusBtn.innerHTML = "–";
   plusBtn.classList.add("plusBtn");
   minusBtn.addEventListener("click", () => {
     if (parseInt(counter.value) > 0) {
