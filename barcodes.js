@@ -188,6 +188,9 @@ barcodeContainer.addEventListener("click", (event) => {
 shareLinkButton.addEventListener("click", shareLink);
 
 async function shareLink() {
+  if (!localStorage.getItem("savedState")) {
+    saveStateToLocalStorage();
+  }
   const savedState = localStorage.getItem("savedState");
   if (!savedState) {
     alert("No state to share.");
@@ -280,7 +283,7 @@ async function decompress(compressedBytes) {
     chunks.push(chunk);
   }
   const stringBytes = await concatUint8Arrays(chunks);
-  
+
   // Convert the bytes to a string.
   return new TextDecoder().decode(stringBytes);
 }
