@@ -1,202 +1,206 @@
 /* General Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Body Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
 }
 
 header {
-    background: #69b42e;
-    color: #f7cc1d;
-    padding: 10px 20px;
-    text-align: center;
-    border-radius: 5px;
+  background: #69b42e;
+  color: #f7cc1d;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 5px;
 }
 
 /* CSV Form Styling */
 #csvForm {
-    background: #e8f0fe;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: 2em auto;
+  background: #e8f0fe;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 2em auto;
 }
 
 #csvForm input[type="text"],
 #csvForm input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-#processCsv {
-    background: #0b4a8e;
-    color: #fff;
-    margin: 1em 0;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    transition: background 0.3s ease;
+#csvForm button {
+  background: #0b4a8e;
+  color: #fff;
+  margin: 0.5em 0;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease;
 }
 
 #barcodeContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .item {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
 }
 
-
 .barcode {
-    height: auto;
-    width: auto; /* Maintain aspect ratio */
-    max-width: 200px; /* Set a maximum width to prevent stretching */
-    margin: auto;
-    display: block;
+  height: auto;
+  width: auto; /* Maintain aspect ratio */
+  max-width: 200px; /* Set a maximum width to prevent stretching */
+  margin: auto;
+  display: block;
 }
 
 .itemsCount {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    border-radius: 5px;
-    overflow: hidden;
-    margin: 1em;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 1em;
 }
 
 .itemsCount > * {
-    font-size: 26px;
+  font-size: 26px;
 }
 
 .itemsCount input[type="number"] {
-    width: 80px;
-    height: 50px;
-    text-align: center;
-    border: 2px solid #0b4a8e;
+  width: 80px;
+  height: 50px;
+  text-align: center;
+  border: 2px solid #0b4a8e;
 }
 
 .itemsCount button {
-    width: 50px;
-    height: 50px;
-    background: #0b4a8e;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s ease;
+  width: 50px;
+  height: 50px;
+  background: #0b4a8e;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .itemsCount button:hover {
-    background: #08407a;
+  background: #08407a;
 }
 
 @media (max-width: 768px) {
-    .item {
-        /* flex-direction: column; */
-        align-items: flex-start;
-        /* align-content: center; */
-        justify-content: center;
-    }
+  .item {
+    /* flex-direction: column; */
+    align-items: flex-start;
+    /* align-content: center; */
+    justify-content: center;
+  }
 
-    .productCode {
-        order: 1;
-        text-align: left;
-    }
+  .productCode {
+    order: 1;
+    text-align: left;
+  }
 
-    .itemsCount {
-        order: 2;
-        margin-top: 10px;
-        align-self: flex-start;
-    }
+  .itemsCount {
+    order: 2;
+    margin-top: 10px;
+    align-self: flex-start;
+  }
 
-    .ean {
-        flex: 1 1 100%;
-        order: 3;
-        text-align: left;
-        margin-top: 10px;
-    }
+  .ean {
+    flex: 1 1 100%;
+    order: 3;
+    text-align: left;
+    margin-top: 10px;
+  }
 }
 
 @media (max-width: 480px) {
-    .item {
-        padding: 10px 5px;
-        /* flex-direction: column; */
-    }
+  .item {
+    padding: 10px 5px;
+    /* flex-direction: column; */
+  }
 
-    .itemsCount input[type="number"] {
-        width: 50px;
-        height: 35px;
-    }
+  .itemsCount input[type="number"] {
+    width: 50px;
+    height: 35px;
+  }
 
-    .itemsCount button {
-        width: 35px;
-        height: 35px;
-    }
+  .itemsCount button {
+    width: 35px;
+    height: 35px;
+  }
 
-    .itemsCount > * {
-        font-size: 16px;
-    }
+  .itemsCount > * {
+    font-size: 16px;
+  }
 }
 
 /* High Contrast Mode with Adjusted Shades */
 body {
-    background-color: #fdf6e3; /* Light shade of #f7cc1d */
-    color: #0b4a8e; /* Dark text for contrast */
+  background-color: #fdf6e3; /* Light shade of #f7cc1d */
+  color: #0b4a8e; /* Dark text for contrast */
 }
 
 header {
-    background: #69b42e; /* Original green */
-    color: #fdf6e3; /* Light shade of #f7cc1d */
+  background: #69b42e; /* Original green */
+  color: #fdf6e3; /* Light shade of #f7cc1d */
 }
 
 #csvForm {
-    background: #e3f7d4; /* Light shade of #69b42e */
-    border: 2px solid #69b42e; /* Original green */
+  background: #e3f7d4; /* Light shade of #69b42e */
+  border: 2px solid #69b42e; /* Original green */
 }
 
 #csvForm input[type="text"],
 #csvForm input[type="file"] {
-    border: 2px solid #0b4a8e; /* Original blue */
+  border: 2px solid #0b4a8e; /* Original blue */
 }
 
-#processCsv {
-    background: #0b4a8e; /* Original blue */
-    color: #fdf6e3; /* Light shade of #f7cc1d */
+button {
+  background: #0b4a8e; /* Original blue */
+  color: #fdf6e3; /* Light shade of #f7cc1d */
 }
 
-#processCsv:hover {
-    background: #08407a; /* Darker shade of #0b4a8e */
+button.secondary {
+  background: #69b42e; /* Original green */
+  color: #fdf6e3; /* Light shade of #f7cc1d */
+}
+
+button:hover {
+  background: #08407a; /* Darker shade of #0b4a8e */
 }
 
 .barcode {
-    background: #fdf6e3; /* Light shade of #f7cc1d */
-    border: 2px solid #69b42e; /* Original green */
-    border-radius: 10px;
+  background: #fdf6e3; /* Light shade of #f7cc1d */
+  border: 2px solid #69b42e; /* Original green */
+  border-radius: 10px;
 }
