@@ -1,154 +1,108 @@
-
-const fileInput = document.getElementById('csvFile');
-const barcodeContainer = document.getElementById('barcodeContainer');
-barcodeContainer.innerHTML = ''; // Clear previous barcodes
-
-const csvContent = `Kod_produktu;EAN;Pocet_kusu
+const csvContentExample = `Kod_produktu;EAN;Pocet_kusu
 112-192;;10,00
 624-298;;5,00
 624-094;;5,00
 624-171;;5,00
-732-107;;1,00
-732-106;;1,00`;
+732-107;5999082000075;1,00
+732-106;5999082000051;1,00`;
 
-    const lines = csvContent.split('\n').filter(line => line.trim() !== '');
+const fileInput = document.getElementById("csvFile");
+const showEanCheckbox = document.getElementById("showEan");
+const submitButton = document.getElementById("processCsv");
+const barcodeContainer = document.getElementById("barcodeContainer");
 
-    lines.forEach((line, index) => {
-        if (index === 0) return; // Skip header line
-        const [kodProduktu, ean, pocetKusu] = line.split(';');
+document.body.onload = function () {
+  generateBarcodes(csvContentExample, true);
+};
 
-        const barcodeDiv = document.createElement('div');
-        barcodeDiv.style.marginBottom = '20px';
-        // barcodeDiv.style.marginRight = '90px';
+document.getElementById("processCsv").addEventListener("click", function () {
+  const file = fileInput.files[0];
+  if (!file) {
+    alert("Please select a CSV file.");
+    return;
+  }
+  const showEan = showEanCheckbox.checked;
 
-        // Generate barcode for Kod_produktu
-        const kodProduktuCanvas = document.createElement('canvas');
-        kodProduktuCanvas.style.marginRight = '90px';
-        JsBarcode(kodProduktuCanvas, kodProduktu.trim(), {
-            format: "CODE128",
-            text: kodProduktu.trim(),
-            fontOptions: "bold",
-            textMargin: 0
-        });
-        barcodeDiv.appendChild(kodProduktuCanvas);
-        
-        const pocetCanvas = document.createElement('canvas');
-        pocetCanvas.style.marginRight = '90px';
-        const pocetKusuInt = parseInt(pocetKusu.replace(',', '.'), 10);
-        JsBarcode(pocetCanvas, pocetKusuInt.toString(), {
-            format: "CODE128",
-            text: pocetKusuInt.toString(),
-            fontOptions: "bold",
-            textMargin: 0
-        });
-        barcodeDiv.appendChild(pocetCanvas);
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    const csvContent = event.target.result;
+    generateBarcodes(csvContent, showEan);
+  };
+  reader.readAsText(file);
+});
 
-        // Generate barcode for EAN if it exists
-        if ((ean || "").trim()) {
-            const eanCanvas = document.createElement('canvas');
-            JsBarcode(eanCanvas, ean.trim(), {
-                format: "EAN13",
-                text: ean.trim(),
-                fontOptions: "bold",
-                textMargin: 0
-            });
-            barcodeDiv.appendChild(eanCanvas);
-        }
+function generateBarcodes(csvContent, showEan) {
+  barcodeContainer.innerHTML = ""; // Clear previous barcodes
 
-        // Append the barcodeDiv to the container
-        barcodeContainer.appendChild(barcodeDiv);
-    });
+  const lines = csvContent.split("\n").filter((line) => line.trim() !== "");
 
-// let uniqueIdCounter = 0;
+  lines.forEach((line, index) => {
+    if (index === 0) return; // Skip header line
+    const [productCode, ean, itemsCount] = line.split(";");
 
-// function generateUniqueId(prefix) {
-//     uniqueIdCounter++;
-//     return `${prefix}_${uniqueIdCounter}`;
-// }
+    const barcodeDiv = document.createElement("div");
+    barcodeDiv.classList.add("item");
+    //barcodeDiv.style.marginBottom = "20px";
+    // barcodeDiv.style.marginRight = '90px';
 
-// const file = fileInput.files[0];
-// const reader = new FileReader();
+    // Product code barcode
+    barcodeDiv.appendChild(
+      createBarcode(productCode.trim(), "CODE128", "productCode")
+    );
 
-// reader.onload = function(event) {
-//     const csvContent = event.target.result;
-//     const lines = csvContent.split('\n').filter(line => line.trim() !== '');
-    
+    // Items count
+    const itemsCountInt = parseInt(itemsCount.replace(",", "."), 10);
+    barcodeDiv.appendChild(createCounter(itemsCountInt, "itemsCount"));
 
-//     lines.forEach((line, index) => {
-//         if (index === 0) return; // Skip header line
-//         const [kodProduktu, ean, pocetKusu] = line.split(';');
+    // EAN barcode
+    if (showEan && (ean || "").trim()) {
+      barcodeDiv.appendChild(createBarcode(ean.trim(), "EAN13", "ean"));
+    }
 
-//         const barcodeDiv = document.createElement('div');
-//         barcodeDiv.style.marginBottom = '20px';
+    // Append the barcodeDiv to the container
+    barcodeContainer.appendChild(barcodeDiv);
+  });
+}
 
-//         // Generate barcode for Kod_produktu
-//         const kodProduktuSvg = document.createElement('svg');
-//         kodProduktuSvg.classList.add('barcode');
-//         kodProduktuSvg.setAttribute('jsbarcode-format', 'code128');
-//         kodProduktuSvg.setAttribute('jsbarcode-value', kodProduktu.trim());
-//         kodProduktuSvg.setAttribute('jsbarcode-textmargin', '0');
-//         kodProduktuSvg.setAttribute('jsbarcode-fontoptions', 'bold');
-//         barcodeDiv.appendChild(kodProduktuSvg);
+function createBarcode(value, format, className, options = {}) {
+  const canvas = document.createElement("canvas");
+  canvas.classList.add(className);
+  JsBarcode(canvas, value, {
+    format: format,
+    height: 50,
+    ...options,
+  });
+  return canvas;
+}
 
-//         // Initialize JsBarcode for the generated SVG
-//         JsBarcode(kodProduktuSvg).init();
+function createCounter(value, className) {
+  const container = document.createElement("div");
+  container.classList.add("counter");
+  container.classList.add(className);
 
+  const counter = document.createElement("input");
+  counter.type = "number";
+  counter.value = value;
 
-        // return
-        // barcodeDiv.style.height = '64px';
+  const plusBtn = document.createElement("button");
+  plusBtn.innerHTML = "+";
+  plusBtn.classList.add("plusBtn");
+  plusBtn.addEventListener("click", () => {
+    counter.value = parseInt(counter.value) + 1;
+  });
 
-        // const commonOptions = {
-        //     format: 'CODE128',
-        //     lineColor: "#0aa",
-        //     height: 64,
-        //     lineColor: "#0aa",
-        //     width: 4,
-        //     height: 40,
-        // }
+  const minusBtn = document.createElement("button");
+  minusBtn.innerHTML = "-";
+  plusBtn.classList.add("plusBtn");
+  minusBtn.addEventListener("click", () => {
+    if (parseInt(counter.value) > 0) {
+      counter.value = parseInt(counter.value) - 1;
+    }
+  });
 
-        // // Generate barcode for Kod_produktu
-        // const kodProduktuId = generateUniqueId('kodProduktu');
-        // const kodProduktuSvg = document.createElement('svg');
-        // kodProduktuSvg.id = kodProduktuId;
-        // barcodeDiv.appendChild(kodProduktuSvg);
-        // requestAnimationFrame(() => {
-        //     JsBarcode(`#${kodProduktuId}`, kodProduktu.trim(), {...commonOptions });
-        // });
+  container.appendChild(plusBtn);
+  container.appendChild(counter);
+  container.appendChild(minusBtn);
 
-        // // Generate barcode for EAN if it exists
-        // if ((ean || "").trim()) {
-        //     const eanId = generateUniqueId('ean');
-        //     const eanSvg = document.createElement('svg');
-        //     eanSvg.id = eanId;
-        //     barcodeDiv.appendChild(eanSvg);
-        //     requestAnimationFrame(() => {
-        //         JsBarcode(`#${eanId}`, ean.trim(), {...commonOptions, format: 'EAN13', text: ean.trim() });
-        //     });
-        // }
-
-        // // Generate barcode for Pocet_kusu
-        // if ((pocetKusu || "").trim()) {
-        //     const pocetKusuId = generateUniqueId('pocetKusu');
-        //     const pocetKusuSvg = document.createElement('svg');
-        //     pocetKusuSvg.id = pocetKusuId;
-        //     barcodeDiv.appendChild(pocetKusuSvg);
-        //     const pocetKusuInt = parseInt(pocetKusu.replace(',', '.'), 10);
-        //     requestAnimationFrame(() => {
-        //         JsBarcode(`#${pocetKusuId}`, pocetKusuInt.toString(), {...commonOptions, text: pocetKusuInt.toString() });
-        //     });
-        // }
-
-        // barcodeContainer.appendChild(barcodeDiv);
-//     });
-// };
-
-// reader.readAsText(file);
-// });
-
-// JsBarcode("#barcode", "1234", {
-//     format: "pharmacode",
-//     lineColor: "#0aa",
-//     width: 4,
-//     height: 40,
-//     displayValue: false
-// });
+  return container;
+}

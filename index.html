@@ -13,14 +13,16 @@
     </header>
     <main>
         <form id="csvForm"></form>
-        <label for="csvFile">Upload CSV File:</label>
-        <input type="file" id="csvFile" name="csvFile" accept=".csv">
-        <button type="button" id="processCsv">Generate Barcodes</button>
+            <label for="csvFile">Upload CSV File:</label>
+            <input type="file" id="csvFile" name="csvFile" accept=".csv">
+            <input type="checkbox" id="showEan" name="showEan" checked>
+            <label for="showEan">Show EAN</label>
+            <button type="button" id="processCsv">Generate Barcodes</button>
         </form>
         <div id="barcodeContainer"></div>
     </main>
     <footer>
-        <p>&copy; 2025 Tomáš Zikmund</p>
+        <p>MIT &copy; 2025 <a href="https://tomaszikmund.eu">Tomáš Zikmund</a></p>
     </footer>
     <script src="barcodes.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
