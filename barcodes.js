@@ -1,3 +1,15 @@
+/**
+ * TODO:
+ * - Add a button to clear all the items
+ * - Add a button to remove a single item
+ * - Add a button to download the barcodes as an image/PDF/HTML
+ * - Add a button to print the barcodes
+ * - Add a form to add a new item manually
+ * 
+ */
+
+
+
 const csvContentExample = `Kod_produktu;EAN;Pocet_kusu
 112-192;;10,00
 624-298;;5,00
