@@ -76,25 +76,17 @@ header {
 
 
 .barcode {
-    height: 100px;
+    height: auto;
     width: auto; /* Maintain aspect ratio */
     max-width: 200px; /* Set a maximum width to prevent stretching */
     margin: auto;
     display: block;
 }
 
-.productCode {
-    font-size: 16px;
-    font-weight: bold;
-    flex: 1;
-    min-width: 150px;
-}
-
 .itemsCount {
     display: flex;
     align-items: center;
     gap: 0;
-    flex: 0 0 auto;
     border-radius: 5px;
     overflow: hidden;
     margin: 1em;
@@ -125,38 +117,37 @@ header {
     background: #08407a;
 }
 
-.ean {
-    font-size: 14px;
-    color: #555;
-    flex: 1;
-    text-align: right;
-    min-width: 150px;
-}
-
 @media (max-width: 768px) {
     .item {
-        flex-direction: column;
+        /* flex-direction: column; */
         align-items: flex-start;
+        /* align-content: center; */
+        justify-content: center;
     }
 
-    .productCode,
-    .itemsCount,
-    .ean {
+    .productCode {
+        order: 1;
         text-align: left;
-        min-width: unset;
+    }
+
+    .itemsCount {
+        order: 2;
+        margin-top: 10px;
+        align-self: flex-start;
     }
 
     .ean {
+        flex: 1 1 100%;
+        order: 3;
+        text-align: left;
         margin-top: 10px;
-    }
-    .itemsCount > * {
-        font-size: 20px;
     }
 }
 
 @media (max-width: 480px) {
     .item {
         padding: 10px 5px;
+        /* flex-direction: column; */
     }
 
     .itemsCount input[type="number"] {
