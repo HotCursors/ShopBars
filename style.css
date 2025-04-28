@@ -43,8 +43,6 @@ header {
 }
 
 #csvForm button {
-  background: #0b4a8e;
-  color: #fff;
   margin: 0.5em 0;
   padding: 15px 20px;
   border: none;
@@ -191,12 +189,13 @@ button {
 }
 
 button.secondary {
-  background: #69b42e; /* Original green */
-  color: #fdf6e3; /* Light shade of #f7cc1d */
+  background: #f7cc1d; /* Original green */
+  color: #0b4a8e; /* Original blue */
 }
 
 button:hover {
-  background: #08407a; /* Darker shade of #0b4a8e */
+  background: #69b42e; /* Darker shade of #0b4a8e */
+  color: #fdf6e3; /* Light shade of #f7cc1d */
 }
 
 .barcode {
