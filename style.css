@@ -14,16 +14,47 @@ body {
     padding: 20px;
 }
 
-/* Header Styling */
 header {
-    background: #0078d7;
-    color: #fff;
+    background: #69b42e;
+    color: #f7cc1d;
     padding: 10px 20px;
     text-align: center;
     border-radius: 5px;
 }
 
-/* Barcode Container */
+/* CSV Form Styling */
+#csvForm {
+    background: #e8f0fe;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 2em auto;
+}
+
+#csvForm input[type="text"],
+#csvForm input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#processCsv {
+    background: #0b4a8e;
+    color: #fff;
+    margin: 1em 0;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
 .barcode-container {
     display: flex;
     flex-wrap: wrap;
@@ -47,4 +78,43 @@ header {
     margin-top: 10px;
     font-size: 14px;
     color: #555;
+}
+
+/* High Contrast Mode with Adjusted Shades */
+body {
+    background-color: #fdf6e3; /* Light shade of #f7cc1d */
+    color: #0b4a8e; /* Dark text for contrast */
+}
+
+header {
+    background: #69b42e; /* Original green */
+    color: #fdf6e3; /* Light shade of #f7cc1d */
+}
+
+#csvForm {
+    background: #e3f7d4; /* Light shade of #69b42e */
+    border: 2px solid #69b42e; /* Original green */
+}
+
+#csvForm input[type="text"],
+#csvForm input[type="file"] {
+    border: 2px solid #0b4a8e; /* Original blue */
+}
+
+#processCsv {
+    background: #0b4a8e; /* Original blue */
+    color: #fdf6e3; /* Light shade of #f7cc1d */
+}
+
+#processCsv:hover {
+    background: #08407a; /* Darker shade of #0b4a8e */
+}
+
+.barcode {
+    background: #fdf6e3; /* Light shade of #f7cc1d */
+    border: 2px solid #69b42e; /* Original green */
+}
+
+.barcode p {
+    color: #0b4a8e; /* Original blue */
 }

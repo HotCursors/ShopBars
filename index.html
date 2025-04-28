@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" type="text/css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
     <title>Shopping barcodes</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <h1>Shopping barcodes</h1>
+      <h1>Shopping barcodes</h1>
     </header>
     <main>
-        <form id="csvForm"></form>
-            <label for="csvFile">Upload CSV File:</label>
-            <input type="file" id="csvFile" name="csvFile" accept=".csv">
-            <input type="checkbox" id="showEan" name="showEan" checked>
-            <label for="showEan">Show EAN</label>
-            <button type="button" id="processCsv">Generate Barcodes</button>
-        </form>
-        <div id="barcodeContainer"></div>
+      <form id="csvForm">
+        <label for="csvFile">Upload CSV File:</label>
+        <input type="file" id="csvFile" name="csvFile" accept=".csv" />
+        <input type="checkbox" id="showEan" name="showEan" checked />
+        <label for="showEan">Show EAN</label>
+        <button type="button" id="processCsv">Generate Barcodes</button>
+      </form>
+      <div id="barcodeContainer"></div>
     </main>
     <footer>
-        <p>MIT &copy; 2025 <a href="https://tomaszikmund.eu">Tomáš Zikmund</a></p>
+      <p>MIT &copy; 2025 <a href="https://tomaszikmund.eu">Tomáš Zikmund</a></p>
     </footer>
     <script src="barcodes.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-</body>
-
+  </body>
 </html>
