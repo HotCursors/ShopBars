@@ -55,29 +55,105 @@ header {
     transition: background 0.3s ease;
 }
 
-.barcode-container {
+#barcodeContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 20px;
-    justify-content: center;
-}
-
-/* Individual Barcode */
-.barcode {
-    background: #fff;
-    border: 1px solid #ddd;
+    align-items: center;
+    justify-content: space-between;
     padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
-/* Barcode Text */
-.barcode p {
-    margin-top: 10px;
+.productCode {
+    font-size: 16px;
+    font-weight: bold;
+    flex: 1;
+    min-width: 150px;
+}
+
+.itemsCount {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+
+.itemsCount input[type="number"] {
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.itemsCount button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    background: #0b4a8e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.itemsCount button:hover {
+    background: #08407a;
+}
+
+.ean {
     font-size: 14px;
     color: #555;
+    flex: 1;
+    text-align: right;
+    min-width: 150px;
+}
+
+@media (max-width: 768px) {
+    .item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .productCode,
+    .itemsCount,
+    .ean {
+        text-align: left;
+        min-width: unset;
+    }
+
+    .ean {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .item {
+        padding: 10px 5px;
+    }
+
+    .itemsCount input[type="number"] {
+        width: 50px;
+        height: 35px;
+        font-size: 14px;
+    }
+
+    .itemsCount button {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
 }
 
 /* High Contrast Mode with Adjusted Shades */
