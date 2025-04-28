@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic HTML5 Page</title>
+    <title>Shopping barcodes</title>
 </head>
+
 <body>
     <header>
-        <h1>Welcome to My Website</h1>
+        <h1>Shopping barcodes</h1>
     </header>
     <main>
         <form id="csvForm"></form>
-            <label for="csvFile">Upload CSV File:</label>
-            <input type="file" id="csvFile" name="csvFile" accept=".csv">
-            <button type="button" id="processCsv">Generate Barcodes</button>
+        <label for="csvFile">Upload CSV File:</label>
+        <input type="file" id="csvFile" name="csvFile" accept=".csv">
+        <button type="button" id="processCsv">Generate Barcodes</button>
         </form>
-        <svg id="barcode"></svg>
         <div id="barcodeContainer"></div>
-        <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-        <script src="barcodes.js"></script>
     </main>
     <footer>
-        <p>&copy; 2023 Your Name</p>
+        <p>&copy; 2025 Tomáš Zikmund</p>
     </footer>
+    <script src="barcodes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 </body>
+
 </html>
