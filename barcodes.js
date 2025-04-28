@@ -12,7 +12,15 @@ const submitButton = document.getElementById("processCsv");
 const barcodeContainer = document.getElementById("barcodeContainer");
 
 document.body.onload = function () {
-  generateBarcodes(csvContentExample, true);
+  // Load the CSV and showEan state from localStorage on page load
+  const savedCsv = localStorage.getItem("savedCsv");
+  const savedShowEan = localStorage.getItem("savedShowEan") === "true";
+  if (savedCsv) {
+    showEanCheckbox.checked = savedShowEan;
+    generateBarcodes(savedCsv, savedShowEan);
+    //   } else {
+    //     generateBarcodes(csvContentExample, true);
+  }
 };
 
 document.getElementById("processCsv").addEventListener("click", function () {
@@ -27,6 +35,7 @@ document.getElementById("processCsv").addEventListener("click", function () {
   reader.onload = function (event) {
     const csvContent = event.target.result;
     generateBarcodes(csvContent, showEan);
+    saveCsvToLocalStorage(csvContent, showEan);
   };
   reader.readAsText(file);
 });
@@ -39,11 +48,10 @@ function generateBarcodes(csvContent, showEan) {
   lines.forEach((line, index) => {
     if (index === 0) return; // Skip header line
     const [productCode, ean, itemsCount] = line.split(";");
+    if(!productCode || !itemsCount) return; // Skip if product code or items count is missing
 
     const barcodeDiv = document.createElement("div");
     barcodeDiv.classList.add("item");
-    //barcodeDiv.style.marginBottom = "20px";
-    // barcodeDiv.style.marginRight = '90px';
 
     // Product code barcode
     barcodeDiv.appendChild(
@@ -106,4 +114,10 @@ function createCounter(value, className) {
   container.appendChild(minusBtn);
 
   return container;
+}
+
+// Save the loaded CSV and showEan state to localStorage
+function saveCsvToLocalStorage(csvContent, showEan) {
+  localStorage.setItem("savedCsv", csvContent);
+  localStorage.setItem("savedShowEan", showEan);
 }
