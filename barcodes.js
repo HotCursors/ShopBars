@@ -5,6 +5,8 @@
  * - Add a button to download the barcodes as an image/PDF/HTML
  * - Add a button to print the barcodes
  * - Add a form to add a new item manually
+ * - Add a button to share the barcodes via URL
+ * - Add a button to share the barcodes via email or social media 
  * 
  */
 
